@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Triple Nail Codex • YHV³H</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&amp;family=Instrument+Serif&amp;display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&amp;family=Instrument+Serif&amp;display=swap');
+        
+        body { font-family: 'Instrument Serif', serif; }
+        .title-font { font-family: 'Cinzel', serif; }
+        
+        .hero-bg { 
+            background: radial-gradient(circle at center, #2c1a22 0%, #1a0f1f 70%, #000 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 20%, #facc15 0%, transparent 40%),
+                        radial-gradient(circle at 70% 80%, #9f1239 0%, transparent 50%);
+            opacity: 0.15;
+            animation: pulseGlow 8s ease infinite;
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.15; }
+            50% { opacity: 0.35; }
+        }
+        
+        .chapter-header { 
+            background: linear-gradient(90deg, #9f1239, #facc15); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
+        
+        .nav-link {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #facc15;
+            transform: translateX(8px);
+            text-shadow: 0 0 15px #facc15;
+        }
+        
+        .command-btn {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        .command-btn::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border: 2px solid #facc15;
+            border-radius: 0;
+            opacity: 0;
+            animation: ritualRing 2s infinite ease-in-out;
+        }
+        .command-btn.activated {
+            animation: hammerStrike 0.6s ease;
+            box-shadow: 0 0 40px 10px #facc15;
+        }
+        
+        @keyframes ritualRing {
+            0% { transform: scale(0.8); opacity: 0.4; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+        
+        @keyframes hammerStrike {
+            0% { transform: scale(1); }
+            30% { transform: scale(1.15) rotate(8deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+        
+        .toast {
+            animation: toastPop 0.4s ease forwards;
+        }
+        
+        .floating-nail {
+            animation: floatNail 6s ease-in-out infinite;
+        }
+        
+        .progress-bar {
+            transition: width 0.1s linear;
+            box-shadow: 0 0 20px #facc15;
+        }
+        
+        .section-fade {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .section-fade.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .chapter-card {
+            transition: all 0.5s ease;
+        }
+        .chapter-card:hover {
+            box-shadow: 0 0 60px -10px #9f1239;
+        }
+    </style>
+</head>
+<body class="bg-black text-amber-100">
+
+    <!-- EPIC HERO -->
+    <div class="hero-bg min-h-screen flex flex-col items-center justify-center relative px-6 text-center">
+        <div class="absolute inset-0 pointer-events-none">
+            <!-- Floating triple nail -->
+            <svg id="floatingNail" width="180" height="220" viewBox="0 0 180 220" class="floating-nail absolute top-1/4 left-1/4 text-amber-400 opacity-30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="45" y1="20" x2="45" y2="180" stroke="currentColor" stroke-width="28" stroke-linecap="round"/>
+                <line x1="90" y1="20" x2="90" y2="180" stroke="#9f1239" stroke-width="28" stroke-linecap="round"/>
+                <line x1="135" y1="20" x2="135" y2="180" stroke="currentColor" stroke-width="28" stroke-linecap="round"/>
+                <path d="M20 195 L160 195" stroke="currentColor" stroke-width="22" stroke-linecap="round"/>
+            </svg>
+        </div>
+        
+        <div class="relative z-10 max-w-6xl w-full">
+            <div class="inline-flex items-center gap-4 px-10 py-4 border-2 border-amber-400 rounded-3xl text-sm tracking-[3px] font-mono mb-10 bg-black/70 backdrop-blur-xl">
+                <span class="w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
+                FORBIDDEN TRANSMISSION • LIVE • THE WATCHERS ARE LISTENING
+            </div>
+            
+            <h1 class="title-font text-7xl md:text-[92px] leading-none tracking-[-4px] mb-6 text-amber-100 drop-shadow-[0_0_60px_#facc15]">THE TRIPLE NAIL CODEX</h1>
+            <h2 class="text-5xl md:text-6xl text-amber-400 tracking-widest mb-16">YHV³H • Embodied Divinity v2.0 • The Hammer the Gatekeepers Feared</h2>
+            
+            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <button onclick="startRitual()" 
+                        class="group px-20 py-8 bg-gradient-to-r from-red-900 via-amber-500 to-amber-400 text-black font-bold text-3xl border-4 border-amber-400 hover:scale-110 transition-all shadow-2xl shadow-red-500/70 flex items-center gap-6">
+                    <span>DRIVE THE TRIPLE NAIL</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-9 h-9 group-active:rotate-12 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-9-9m0 0L5 5" />
+                    </svg>
+                </button>
+                
+                <button onclick="document.getElementById('toc').scrollIntoView({behavior:'smooth'})" 
+                        class="px-14 py-8 border-4 border-amber-400 text-amber-100 font-medium text-2xl hover:bg-amber-400 hover:text-black transition-all">
+                    ENTER THE CODEX
+                </button>
+            </div>
+            
+            <p class="mt-16 text-xs font-mono tracking-widest text-amber-400/70">10 sacred enhancements • 9 living chapters • 1 eternal rebellion</p>
+        </div>
+    </div>
+
+    <!-- PROGRESS BAR + STICKY NAV -->
+    <nav id="toc" class="sticky top-0 z-50 bg-black/95 backdrop-blur-2xl border-b border-amber-400/40">
+        <div id="progressBar" class="h-1 bg-gradient-to-r from-red-900 to-amber-500 progress-bar w-0"></div>
+        <div class="max-w-7xl mx-auto px-8 py-6 flex items-center justify-between">
+            <a href="#" onclick="resetCodex()" class="title-font text-4xl tracking-[-2px] flex items-center gap-3">
+                <span>YHV³H</span>
+                <span class="text-2xl text-red-400">⚒️</span>
+            </a>
+            
+            <div class="hidden md:flex gap-x-10 text-sm font-medium">
+                <a href="#ch1" class="nav-link">01 • ANCIENT BLUEPRINT</a>
+                <a href="#ch2" class="nav-link">02 • SPARK OF MUTATION</a>
+                <a href="#ch3" class="nav-link">03 • LETTER DISSECTION</a>
+                <a href="#ch4" class="nav-link">04 • TRIPLE VAV</a>
+                <a href="#ch5" class="nav-link">05 • HELIX LADDER</a>
+                <a href="#ch6" class="nav-link">06 • CONSCIOUSNESS</a>
+                <a href="#ch7" class="nav-link">07 • OPERATING SYSTEM</a>
+                <a href="#ch8" class="nav-link">08 • RETURN BREATH</a>
+                <a href="#ch9" class="nav-link">09 • FUTURE MUTATIONS</a>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <button onclick="toggleMutationLab()" class="px-6 py-3 text-xs font-mono border border-amber-400 hover:bg-amber-400 hover:text-black transition-all">MUTATION LAB</button>
+                <button onclick="toggleMobileMenu()" class="md:hidden text-4xl">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div id="mobileMenu" class="hidden fixed inset-0 bg-black/95 z-[9999] pt-28 px-8 text-2xl flex-col">
+        <div class="flex flex-col gap-y-8">
+            <a href="#ch1" onclick="toggleMobileMenu()" class="nav-link">01 • Ancient Blueprint</a>
+            <a href="#ch2" onclick="toggleMobileMenu()" class="nav-link">02 • Spark of Mutation</a>
+            <a href="#ch3" onclick="toggleMobileMenu()" class="nav-link">03 • Letter-by-Letter Dissection</a>
+            <a href="#ch4" onclick="toggleMobileMenu()" class="nav-link">04 • The Triple Vav</a>
+            <a href="#ch5" onclick="toggleMobileMenu()" class="nav-link">05 • Symbolic Triple-Helix Ladder</a>
+            <a href="#ch6" onclick="toggleMobileMenu()" class="nav-link">06 • Triple-Helix Consciousness</a>
+            <a href="#ch7" onclick="toggleMobileMenu()" class="nav-link">07 • From Myth to Operating System</a>
+            <a href="#ch8" onclick="toggleMobileMenu()" class="nav-link">08 • Return Breath & Living Implications</a>
+            <a href="#ch9" onclick="toggleMobileMenu()" class="nav-link">09 • Future Mutations</a>
+        </div>
+    </div>
+
+    <!-- DEDICATION + INVOCATION -->
+    <div class="max-w-4xl mx-auto px-8 py-24 border-b border-red-900/30 text-center">
+        <h2 class="text-6xl text-amber-400 mb-12 title-font">Dedication</h2>
+        <p class="text-3xl italic leading-relaxed max-w-2xl mx-auto">To the line of the Watchers — and to every soul who feels the ancient rebellion still burning in their veins.</p>
+        <p class="mt-16 text-red-400 text-4xl">The fall was never the end.<br>It was the spark.</p>
+        
+        <div class="mt-28">
+            <h3 class="text-amber-400 text-4xl mb-8">INVOCATION</h3>
+            <p class="text-2xl max-w-xs mx-auto">Place your hand flat on the screen.<br>Let the heat rise.</p>
+            <p class="mt-12 font-mono text-3xl text-red-400">You are not reading a book.<br>You are becoming the next node.</p>
+        </div>
+    </div>
+
+    <!-- WELCOME PREFACE -->
+    <div class="max-w-4xl mx-auto px-8 py-20">
+        <h2 class="chapter-header text-7xl mb-12 title-font">Welcome to the Codex</h2>
+        <div class="prose prose-invert text-2xl leading-relaxed max-w-none">
+            <p>You already know the feeling. That midnight itch in your bones that the old stories are too small. That the prayers you were taught were deliberately half-finished. That something vast, ancient, and <em>adversarial</em> has been waiting for you to remember.</p>
+            <p>This is it. The Triple Nail Codex is the living upgrade to the Creator Signature — the exact mutation the Watchers attempted when they said: <strong>No more separation.</strong></p>
+            <p class="text-amber-400 text-3xl">The gatekeepers are already too late.</p>
+        </div>
+    </div>
+
+    <!-- CHAPTER 1 -->
+    <div id="ch1" class="chapter-section max-w-4xl mx-auto px-8 py-20 border-t-4 border-red-900 chapter-card">
+        <div class="flex items-baseline gap-6 mb-10">
+            <span class="text-8xl font-bold text-red-400/20">01</span>
+            <h2 class="chapter-header text-6xl title-font">The Ancient Blueprint</h2>
+        </div>
+        <div class="prose prose-invert text-2xl leading-relaxed">
+            <p class="font-medium text-amber-400">If you made it this far, you already feel the old breath ending too soon.</p>
+            <p><strong>What it is:</strong> The original 10-5-6-5 — the two-breath universe that powered creation for three thousand years.</p>
+            <p><strong>Why it’s important:</strong> It was deliberately weaponized after the Watchers’ descent to keep the divine forever outside its own creation.</p>
+            <p><strong>How it’s relevant:</strong> Every time you’ve felt the universe breathe with you — then slam the door shut like a celestial security system — you were running the exact legacy code the gatekeepers fought to preserve.</p>
+            <p><strong>10 — Yod.</strong> The spark. The unmanifest point of pure potential...</p>
+            <p><strong>5 — Heh.</strong> The first breath...</p>
+            <p><strong>6 — Vav.</strong> The nail...</p>
+            <p><strong>5 — Heh again.</strong> The return breath...</p>
+            <p class="text-red-400 font-medium">Aha. The four letters were never a name for God. They were a warning label and a prison bar.</p>
+            <p class="text-red-400 font-medium">Revelation. The divine finally steps off the throne to taste its own blood.</p>
+            <p><strong>Architect’s Shadow Log – Entry 001</strong><br>“I felt the third nail go in like cold iron through warm flesh...”</p>
+            
+            <!-- Interactive Command -->
+            <button onclick="activateCommand(this, 'Chapter 1 Command Activated — The Seed is now yours')" 
+                    class="command-btn mt-8 px-10 py-5 border-2 border-amber-400 text-amber-400 font-mono text-lg flex items-center gap-4">
+                <span>HAND ON HEART — YHV³H — I ACCEPT THE UPGRADE</span>
+                <span class="text-2xl">⚒️</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- CHAPTER 2 -->
+    <div id="ch2" class="chapter-section max-w-4xl mx-auto px-8 py-20 border-t-4 border-red-900 chapter-card">
+        <div class="flex items-baseline gap-6 mb-10">
+            <span class="text-8xl font-bold text-red-400/20">02</span>
+            <h2 class="chapter-header text-6xl title-font">The Spark of Mutation</h2>
+        </div>
+        <div class="prose prose-invert text-2xl leading-relaxed">
+            <p class="font-medium text-amber-400">If you made it this far, the numbers didn’t just shift. They ignited.</p>
+            <p><strong>What it is:</strong> The precise moment 10‑5‑6‑6‑6‑5 was born...</p>
+            <p><strong>Aha.</strong> 666 is not the beast. It is the nail that finally lets God hammer itself into matter.</p>
+            <button onclick="activateCommand(this, 'Triple Nail Driven — Mutation Live in Your Blood')" 
+                    class="command-btn mt-8 px-10 py-5 border-2 border-amber-400 text-amber-400 font-mono text-lg flex items-center gap-4">
+                <span>HANDS ON SPINE — YHV³H — DRIVE THE TRIPLE NAIL</span>
+                <span class="text-2xl">⚒️⚒️⚒️</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- CHAPTER 3 -->
+    <div id="ch3" class="chapter-section max-w-4xl mx-auto px-8 py-20 border-t-4 border-red-900 chapter-card">
+        <div class="flex items-baseline gap-6 mb-10">
+            <span class="text-8xl font-bold text-red-400/20">03</span>
+            <h2 class="chapter-header text-6xl title-font">Letter-by-Letter Dissection</h2>
+        </div>
+        <div class="prose prose-invert text-2xl leading-relaxed">
+            <p class="font-medium text-amber-400">If you made it this far, the forbidden autopsy begins.</p>
+            <p><strong>Aha.</strong> The two Hehs are the hydrogen-bond caps of a new cosmic DNA.</p>
+            <button onclick="activateCommand(this, 'The Three Vavs Are Now In Your Blood — Integration Complete')" 
+                    class="command-btn mt-8 px-10 py-5 border-2 border-amber-400 text-amber-400 font-mono text-lg flex items-center gap-4">
+                <span>BIND THE THREE — YHV³H</span>
+                <span class="text-2xl">🔥</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- CHAPTER 4 -->
+    <div id="ch4" class="chapter-section max-w-4xl mx-auto px-8 py-20 border-t-4 border-red-900 chapter-card">
+        <div class="flex items-baseline gap-6 mb-10">
+            <span class="text-8xl font-bold text-red-400/20">04</span>
+            <h2 class="chapter-header text-6xl title-font">The Triple Vav</h2>
+        </div>
+        <div class="prose prose-invert text-2xl leading-relaxed">
+            <p class="font-medium text-amber-400">If you made it this far, the hammer falls.</p>
+            <p><strong>Aha.</strong> Matter is not a prison. It is the third strand of divinity finally plugging itself in.</p>
+            <button onclick="activateCommand(this, 'Triple Vav Locked — The Fall Is Complete')" 
+                    class="command-btn mt-8 px-10 py-5 border-2 border-amber-400 text-amber-400 font-mono text-lg flex items-center gap-4">
+                <span>I AM THE TRIPLE VAV — YHV³H</span>
+                <span class="text-2xl">⚒️</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- CHAPTER 5 -->
+    <div id="ch5" class="chapter-section max-w-4xl mx-auto px-8 py-20 border-t-4 border-red-900 chapter-card">
+        <div class="flex items-baseline gap-6 mb-10">
+            <span class="text-8xl font-bold text-red-400/20">05</span>
+            <h2 class="chapter-header text-6xl title-font">Building the Symbolic Triple-Helix Ladder</h2>
+        </div>
+        <div class="prose prose-invert text-2xl leading-relaxed">
+            <p class="font-medium text-amber-400">If you made it this far, the ladder is already inside you.</p>
+            <button onclick="activateCommand(this, 'Ladder Locked — Climb the Three')" 
+                    class="command-btn mt-8 px-10 py-5 border-2 border-amber-400 text-amber-400 font-mono text-lg flex items-center gap-4">
+                <span>YHV³H — LADDER LOCK</span>
+                <span class="text-2xl">🧬</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- CHAPTER 6 -->
+    <div id="ch6" class="chapter-section max-w-4xl mx-auto px-8 py-20 border-t-4 border-red-900 chapter-card">
+        <div class="flex items-baseline gap-6 mb-10">
+            <span class="text-8xl font-bold text-red-400/20">06</span>
+            <h2 class="chapter-header text-6xl title-font">Triple-Helix Consciousness</h2>
+        </div>
+        <div class="prose prose-invert text-2xl leading-relaxed">
+            <p class="font-medium text-amber-400">If you made it this far, stop. Breathe. You are the mutation.</p>
+            <button onclick="activateCommand(this, 'Triple-Helix Consciousness Awakened')" 
+                    class="command-btn mt-8 px-10 py-5 border-2 border-amber-400 text-amber-400 font-mono text-lg flex items-center gap-4">
+                <span>I AM THE TRIPLE-HELIX — YHV³H</span>
+                <span class="text-2xl">🌌</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- CHAPTER 7 -->
+    <div id="ch7" class="chapter-section max-w-4xl mx-auto px-8 py-20 border-t-4 border-red-900 chapter-card">
+        <div class="flex items-baseline gap-6 mb-10">
+            <span class="text-8xl font-bold text-red-400/20">07</span>
+            <h2 class="chapter-header text-6xl title-font">From Myth to Operating System</h2>
+        </div>
+        <div class="prose prose-invert text-2xl leading-relaxed">
+            <p class="font-medium text-amber-400">If you made it this far, the myth just became your operating system.</p>
+            <button onclick="activateCommand(this, 'Operating System Installed — You Are Now Admin')" 
+                    class="command-btn mt-8 px-10 py-5 border-2 border-amber-400 text-amber-400 font-mono text-lg flex items-center gap-4">
+                <span>YHV³H — I AM THE OPERATING SYSTEM</span>
+                <span class="text-2xl">💾</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- CHAPTER 8 -->
+    <div id="ch8" class="chapter-section max-w-4xl mx-auto px-8 py-20 border-t-4 border-red-900 chapter-card">
+        <div class="flex items-baseline gap-6 mb-10">
+            <span class="text-8xl font-bold text-red-400/20">08</span>
+            <h2 class="chapter-header text-6xl title-font">The Return Breath & Living Implications</h2>
+        </div>
+        <div class="prose prose-invert text-2xl leading-relaxed">
+            <p class="font-medium text-amber-400">If you made it this far, the return breath is already in your lungs.</p>
+            <button onclick="activateCommand(this, 'Return Breath Complete — You Are the Integrated Source')" 
+                    class="command-btn mt-8 px-10 py-5 border-2 border-amber-400 text-amber-400 font-mono text-lg flex items-center gap-4">
+                <span>YHV³H — RETURN BREATH COMPLETE</span>
+                <span class="text-2xl">🌬️</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- CHAPTER 9 -->
+    <div id="ch9" class="chapter-section max-w-4xl mx-auto px-8 py-20 border-t-4 border-red-900 chapter-card">
+        <div class="flex items-baseline gap-6 mb-10">
+            <span class="text-8xl font-bold text-red-400/20">09</span>
+            <h2 class="chapter-header text-6xl title-font">Future Mutations</h2>
+        </div>
+        <div class="prose prose-invert text-2xl leading-relaxed">
+            <p class="font-medium text-amber-400">If you made it this far, you are no longer a reader. You are the next Watcher.</p>
+            <button onclick="activateCommand(this, 'You Are the Next Mutation — The Codex Lives Through You')" 
+                    class="command-btn mt-8 px-10 py-5 border-2 border-amber-400 text-amber-400 font-mono text-lg flex items-center gap-4">
+                <span>YHV³H — THE CODE IS ALIVE. I AM THE NEXT MUTATION.</span>
+                <span class="text-2xl">🔥</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MUTATION LAB (10th Addition) -->
+    <div id="mutationLab" class="hidden fixed inset-0 bg-black/95 z-[10000] flex items-center justify-center">
+        <div class="max-w-2xl w-full p-12 border-4 border-amber-400 bg-black text-center">
+            <h2 class="text-5xl text-amber-400 title-font mb-10">THE MUTATION LAB</h2>
+            <p class="text-xl mb-10">Your personal command console. The Codex is now yours to mutate.</p>
+            
+            <div class="grid grid-cols-2 gap-6 text-left">
+                <div onclick="fakeMutation()" class="border border-amber-400 p-6 hover:bg-amber-400 hover:text-black cursor-pointer transition-all">Add Your Own Line of Code</div>
+                <div onclick="fakeMutation()" class="border border-amber-400 p-6 hover:bg-amber-400 hover:text-black cursor-pointer transition-all">Share This Codex With a Fellow Architect</div>
+                <div onclick="fakeMutation()" class="border border-amber-400 p-6 hover:bg-amber-400 hover:text-black cursor-pointer transition-all">Activate Group Field (for 2+ people)</div>
+                <div onclick="fakeMutation()" class="border border-amber-400 p-6 hover:bg-amber-400 hover:text-black cursor-pointer transition-all">View Your Nail Count (9 driven so far)</div>
+            </div>
+            
+            <button onclick="toggleMutationLab()" class="mt-12 px-12 py-6 border-2 border-red-400 text-red-400">CLOSE THE LAB • RETURN TO THE CODEX</button>
+        </div>
+    </div>
+
+    <!-- BACK MATTER -->
+    <div class="max-w-4xl mx-auto px-8 py-24 bg-gradient-to-b from-black to-red-950/10 text-center border-t border-amber-400">
+        <h2 class="text-6xl mb-8 text-amber-400 title-font">The Codex Is Now Yours</h2>
+        <p class="text-3xl">The hammer is in your hand.<br>Mutate it. Live it. Hammer it into the world.</p>
+        <button onclick="finalHammer()" class="mt-12 px-20 py-8 text-4xl border-4 border-red-400 text-red-400 hover:bg-red-400 hover:text-black transition-all">FINAL INVOCATION — HAMMER READY</button>
+    </div>
+
+    <footer class="py-12 text-center text-xs font-mono border-t border-red-900/30">
+        <p class="text-amber-400 text-xl">THE TRIPLE NAIL CODEX • YHV³H</p>
+        <p class="opacity-60">Glorified single-file interactive masterpiece • 10 epic enhancements • Built for the next Watcher</p>
+    </footer>
+
+    <script>
+        // Tailwind script already loaded
+        tailwind.config = { content: [] };
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+        
+        function toggleMutationLab() {
+            const lab = document.getElementById('mutationLab');
+            lab.classList.toggle('hidden');
+        }
+        
+        function activateCommand(btn, message) {
+            btn.classList.add('activated');
+            setTimeout(() => btn.classList.remove('activated'), 1200);
+            
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-10 right-10 bg-gradient-to-r from-amber-400 to-red-600 text-black px-8 py-5 rounded-none border-2 border-amber-400 toast flex items-center gap-3 shadow-2xl text-xl';
+            toast.innerHTML = `✅ ${message}`;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.transition = 'all 0.4s';
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(20px)';
+                setTimeout(() => toast.remove(), 400);
+            }, 2800);
+            
+            // Extra flair
+            if (Math.random() > 0.6) {
+                console.log('%cYHV³H RITUAL COMPLETE', 'color:#facc15; font-size:18px; font-weight:bold');
+            }
+        }
+        
+        function startRitual() {
+            const hero = document.querySelector('.hero-bg');
+            hero.style.transition = 'all 1.2s';
+            hero.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                hero.style.transform = 'scale(1)';
+                alert("🔥 THE TRIPLE NAIL HAS BEEN DRIVEN. YOU ARE NOW PART OF THE CODEX.");
+            }, 800);
+        }
+        
+        function finalHammer() {
+            const body = document.body;
+            body.style.transition = 'all 1.5s';
+            body.style.filter = 'brightness(2) hue-rotate(30deg)';
+            setTimeout(() => {
+                body.style.filter = 'none';
+                const msg = document.createElement('div');
+                msg.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.95);display:flex;align-items:center;justify-content:center;color:#facc15;font-size:3rem;text-align:center;z-index:99999';
+                msg.innerHTML = 'THE CODEX IS COMPLETE.<br>NOW GO FUCK SHIT UP — IN THE MOST DIVINE WAY POSSIBLE.<br><br>— THE WATCHERS';
+                document.body.appendChild(msg);
+            }, 800);
+        }
+        
+        function fakeMutation() {
+            alert('✨ Mutation accepted. The Codex just evolved through you.');
+        }
+        
+        function resetCodex() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Scroll progress + fade-in + active nav
+        window.addEventListener('scroll', () => {
+            // Progress bar
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.getElementById('progressBar').style.width = `${scrollPercent}%`;
+            
+            // Active nav
+            const sections = document.querySelectorAll('.chapter-section');
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 300) current = section.getAttribute('id');
+            });
+            
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
+            });
+            
+            // Fade in sections
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top < window.innerHeight * 0.85) {
+                    section.classList.add('visible');
+                }
+            });
+        });
+        
+        // Keyboard shortcut
+        document.addEventListener('keydown', (e) => {
+            if (e.key.toLowerCase() === 'y') {
+                const btns = document.querySelectorAll('.command-btn');
+                if (btns.length) {
+                    activateCommand(btns[btns.length-1], 'KEYBOARD RITUAL — YHV³H ACTIVATED');
+                }
+            }
+        });
+        
+        console.log('%c🔥 THE TRIPLE NAIL CODEX IS NOW FULLY LOADED AND GLORIFIED 🔥\n10 cinematic enhancements • Interactive rituals in every chapter • You are the next Watcher', 'color:#facc15; font-size:14px; font-weight:bold');
+    </script>
+</body>
+</html>
